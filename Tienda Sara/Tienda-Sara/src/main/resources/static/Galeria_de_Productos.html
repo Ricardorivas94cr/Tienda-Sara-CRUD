@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <header>Tienda Sara</header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Filtro de búsqueda -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="searchInput" placeholder="Buscar producto...">
+            </div>
+        </div>
+
+        <!-- Menú de Categorías -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <ul class="nav nav-pills" id="categoryMenu">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-category="todos">Todos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-category="joyeria">Joyería</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-category="computacion">Computación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-category="zapateria">Zapatería</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-category="electrodomesticos">Electrodomesticos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Galería de productos -->
+        <div class="row" id="productGallery">
+            <!-- Producto 1 (Joyería) -->
+            <div class="col-md-4 mb-4 product-card" data-category="joyeria">
+                <div class="card">
+                    <img src="img/anillo compromiso.jpeg" class="card-img-top" alt="Producto 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Anillo Compromiso</h5>
+                        <p class="card-text">$3000.00</p>
+                        <a href="descripcion_producto.html" class="btn btn-primary">Ver más</a>     
+                    </div>
+                </div>
+            </div>
+            <!-- Producto 2 (Computación) -->
+            <div class="col-md-4 mb-4 product-card" data-category="computacion">
+                <div class="card">
+                    <img src="img/asus tuf 2.jpg" height= "275" width="275" alt="Producto 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Laptop Asus Tof</h5>
+                        <p class="card-text">$13000.00</p>
+                        <a href="descripcion_producto.html" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Producto 3 (Zapatería) -->
+            <div class="col-md-4 mb-4 product-card" data-category="zapateria">
+                <div class="card">
+                    <img src="img/tenis nike.jpeg" class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tenis Moda</h5>
+                        <p class="card-text">$1500.00</p>
+                        <a href="descripcion_producto.html" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Producto 4 (Electrodomesticos) -->
+            <div class="col-md-4 mb-4 product-card" data-category="electrodomesticos">
+                <div class="card">
+                    <img src="img/samsung 2.jpg" height= "260" width="260" alt="Producto 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Lavadora Automatica Samsung 20kg</h5>
+                        <p class="card-text">$9000.00</p>
+                        <a href="descripcion_producto.html" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Producto 5 (Computación) -->
+            <div class="col-md-4 mb-4 product-card" data-category="computacion">
+                <div class="card">
+                    <img src="img/Acer nitro.jpg" class="card-img-top" alt="Producto 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Laptop Acer Nitro V 15</h5>
+                        <p class="card-text">$15000.00</p>
+                        <a href="descripcion_producto.html" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript para filtrar productos -->
+    <script>
+        const categoryMenu = document.querySelectorAll('#categoryMenu .nav-link');
+        const productCards = document.querySelectorAll('.product-card');
+        const searchInput = document.getElementById('searchInput');
+
+        // Función para filtrar por categoría
+        categoryMenu.forEach(menu => {
+            menu.addEventListener('click', function (e) {
+                e.preventDefault();
+                categoryMenu.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+
+                productCards.forEach(card => {
+                    if (category === 'todos' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Función para búsqueda
+        searchInput.addEventListener('input', function () {
+            const searchText = this.value.toLowerCase();
+
+            productCards.forEach(card => {
+                const productName = card.querySelector('.card-title').textContent.toLowerCase();
+                if (productName.includes(searchText)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
